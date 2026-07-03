@@ -536,13 +536,28 @@ return function(Config)
 		return ".png"
 	end
 
+    local function GetVideoExtension(url)
+    local ext = url:match("%.([%w]+)$")
+    ext = ext and ext:lower()
+
+    if ext == "mp4" then
+        return ".mp4"
+    elseif ext == "webm" then
+        return ".webm"
+    end
+
+    return ".webm"
+
+    end
+
 	--print(GetImageExtension(BGImageUrl))
 
 	if typeof(Window.Background) == "string" and BGVideo then
 		IsVideoBG = true
 
 		if string.find(BGVideo, "http") then
-			local videoPath = (Window.Folder or "Temp") .. "/assets/." .. Creator.SanitizeFilename(BGVideo) .. ".webm"
+            local videoPath = (Window.Folder or "Temp") .. "/assets/." .. Creator.SanitizeFilename(BGVideo) .. GetVideoExtension(BGVideo)
+
 			if not isfile(videoPath) then
 				local success, result = pcall(function()
 					-- local response = Creator.Request({
