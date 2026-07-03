@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    v1.6.65  |  2026-07-01  |  Roblox UI Library for scripts
+    v1.6.65  |  2026-07-03  |  Roblox UI Library for scripts
     
     To view the source code, see the `src/` folder on the official GitHub repository.
     
@@ -13528,13 +13528,28 @@ end
 return".png"
 end
 
+local function GetVideoExtension(r)
+local u=r:match"%.([%w]+)$"
+u=u and u:lower()
+
+if u=="mp4"then
+return".mp4"
+elseif u=="webm"then
+return".webm"
+end
+
+return".webm"
+
+end
+
 
 
 if typeof(aw.Background)=="string"and l then
 h=true
 
 if string.find(l,"http")then
-local r=(aw.Folder or"Temp").."/assets/."..an.SanitizeFilename(l)..".webm"
+local r=(aw.Folder or"Temp").."/assets/."..an.SanitizeFilename(l)..GetVideoExtension(l)
+
 if not isfile(r)then
 local u,v=pcall(function()
 
